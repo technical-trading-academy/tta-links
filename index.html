@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Willow the Trader — Technical Trading Academy</title>
+  <meta property="og:title" content="Willow the Trader — Technical Trading Academy">
+  <meta property="og:description" content="Systematic trading education. ES/MES futures. Rule-based, automated, emotion-free.">
+  <meta property="og:image" content="https://links.techacademies.org/og-image.png">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:site" content="@TechTradingUSA">
+  <meta name="description" content="Systematic trading education. ES/MES futures. Rule-based, automated, emotion-free.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: #0F172A;
+      color: #FFFFFF;
+      font-family: 'Inter', sans-serif;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .top-bar {
+      height: 4px;
+      background: linear-gradient(90deg, #D4A543, #F0D078, #D4A543);
+      background-size: 200% 100%;
+      animation: shimmer 3s ease-in-out infinite;
+    }
+
+    @keyframes shimmer {
+      0%, 100% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+    }
+
+    .container {
+      max-width: 760px;
+      width: 100%;
+      margin: 0 auto;
+      padding: 32px 20px 24px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .logo {
+      width: 80px;
+      height: 80px;
+      margin-bottom: 16px;
+    }
+
+    .name {
+      color: #D4A543;
+      font-weight: 700;
+      font-size: 22px;
+      margin-bottom: 4px;
+    }
+
+    .subtitle {
+      color: #CBD5E1;
+      font-size: 14px;
+      text-align: center;
+      line-height: 1.4;
+      margin-bottom: 24px;
+    }
+
+    .divider {
+      width: 100%;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, #D4A543, transparent);
+      margin-bottom: 24px;
+    }
+
+    .links {
+      width: 100%;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 12px;
+      margin-bottom: 32px;
+    }
+
+    .link-card {
+      display: flex;
+      align-items: center;
+      background: #1E293B;
+      border-radius: 12px;
+      padding: 16px;
+      text-decoration: none;
+      color: #FFFFFF;
+      border-left: 3px solid #D4A543;
+      transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
+      opacity: 0;
+      animation: fadeIn 0.4s ease forwards;
+    }
+
+    .link-card:nth-child(1) { animation-delay: 0.1s; }
+    .link-card:nth-child(2) { animation-delay: 0.2s; }
+    .link-card:nth-child(3) { animation-delay: 0.3s; }
+    .link-card:nth-child(4) { animation-delay: 0.4s; }
+    .link-card:nth-child(5) { animation-delay: 0.5s; }
+    .link-card:nth-child(6) { animation-delay: 0.6s; }
+    .link-card:nth-child(7) { animation-delay: 0.7s; }
+    .link-card:nth-child(8) { animation-delay: 0.8s; }
+    .link-card:nth-child(9) { animation-delay: 0.9s; }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .link-card:hover {
+      background: #263348;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 20px rgba(212, 165, 67, 0.15);
+    }
+
+    .link-card.teal {
+      border-left-color: #14B8A6;
+    }
+
+    .link-icon {
+      font-size: 24px;
+      width: 40px;
+      flex-shrink: 0;
+      text-align: center;
+    }
+
+    .link-text {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .link-title {
+      font-weight: 600;
+      font-size: 15px;
+      margin-bottom: 2px;
+    }
+
+    .link-subtitle {
+      color: #94A3B8;
+      font-size: 12px;
+      line-height: 1.3;
+    }
+
+    .link-arrow {
+      color: #64748B;
+      font-size: 18px;
+      margin-left: 12px;
+      flex-shrink: 0;
+      transition: color 0.2s;
+    }
+
+    .link-card:hover .link-arrow {
+      color: #D4A543;
+    }
+
+    .link-card.teal:hover .link-arrow {
+      color: #14B8A6;
+    }
+
+    .footer {
+      text-align: center;
+      color: #475569;
+      font-size: 12px;
+      padding-bottom: 8px;
+    }
+
+    .bottom-bar {
+      height: 4px;
+      background: linear-gradient(90deg, #D4A543, #F0D078, #D4A543);
+      background-size: 200% 100%;
+      animation: shimmer 3s ease-in-out infinite;
+    }
+
+    /* Dropdown cards */
+    .dropdown-wrapper {
+      opacity: 0;
+      animation: fadeIn 0.4s ease forwards;
+      grid-column: 1 / -1;
+    }
+    .dropdown-wrapper:nth-child(8) { animation-delay: 0.8s; }
+    .dropdown-wrapper:nth-child(9) { animation-delay: 0.9s; }
+    .dropdown-wrapper:nth-child(10) { animation-delay: 1.0s; }
+
+    /* Full-width single-column cards inside the grid */
+    .link-card.wide {
+      grid-column: 1 / -1;
+    }
+
+    .dropdown-header {
+      display: flex;
+      align-items: center;
+      background: #1E293B;
+      border-radius: 12px;
+      padding: 16px;
+      color: #FFFFFF;
+      border-left: 3px solid #D4A543;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
+      user-select: none;
+    }
+    .dropdown-header.teal { border-left-color: #14B8A6; }
+
+    .dropdown-header:hover {
+      background: #263348;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 20px rgba(212, 165, 67, 0.15);
+    }
+    .dropdown-header.teal:hover {
+      box-shadow: 0 4px 20px rgba(20, 184, 166, 0.15);
+    }
+
+    .dropdown-header .link-arrow {
+      transition: transform 0.2s, color 0.2s;
+    }
+    .dropdown-wrapper.open .dropdown-header .link-arrow {
+      transform: rotate(90deg);
+    }
+    .dropdown-header:hover .link-arrow { color: #D4A543; }
+    .dropdown-header.teal:hover .link-arrow { color: #14B8A6; }
+
+    .dropdown-body {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease;
+    }
+    .dropdown-wrapper.open .dropdown-body {
+      max-height: 400px;
+    }
+
+    .dropdown-sublink {
+      display: flex;
+      align-items: center;
+      padding: 12px 16px 12px 24px;
+      background: #151E2E;
+      text-decoration: none;
+      color: #FFFFFF;
+      border-left: 3px solid #D4A543;
+      margin-left: 16px;
+      transition: background 0.2s;
+      font-size: 14px;
+    }
+    .dropdown-sublink:first-child {
+      border-radius: 0;
+      margin-top: 4px;
+    }
+    .dropdown-sublink:last-child {
+      border-radius: 0 0 8px 8px;
+    }
+    .dropdown-sublink:hover {
+      background: #1a2640;
+    }
+    .dropdown-sublink.teal {
+      border-left-color: #14B8A6;
+    }
+    .dropdown-sublink .sub-icon {
+      margin-right: 10px;
+      font-size: 16px;
+    }
+    .dropdown-sublink .sub-title {
+      font-weight: 600;
+      font-size: 14px;
+    }
+    .dropdown-sublink .sub-text {
+      flex: 1;
+      min-width: 0;
+    }
+    .dropdown-sublink .sub-subtitle {
+      color: #94A3B8;
+      font-size: 11px;
+      line-height: 1.3;
+      margin-top: 1px;
+    }
+    .dropdown-sublink .sub-arrow {
+      margin-left: auto;
+      color: #64748B;
+      font-size: 14px;
+    }
+  </style>
+</head>
+<body>
+  <div class="top-bar"></div>
+
+  <div class="container">
+    <img class="logo" src="data:image/png;base64,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" alt="TTA Logo">
+
+    <div class="name">Willow the Trader</div>
+    <div class="subtitle">Systematic Trading Educator</div>
+
+    <div class="divider"></div>
+
+    <div class="links">
+      <a class="link-card" href="https://techacademies.org" target="_blank" rel="noopener">
+        <span class="link-icon">&#127963;&#65039;</span>
+        <div class="link-text">
+          <div class="link-title">Technical Trading Academy</div>
+          <div class="link-subtitle">Home of systematic, rule-based trading education</div>
+        </div>
+        <span class="link-arrow">&#8250;</span>
+      </a>
+
+      <a class="link-card" href="https://discord.gg/3KdEpkjYkv" target="_blank" rel="noopener">
+        <span class="link-icon">&#128172;</span>
+        <div class="link-text">
+          <div class="link-title">Join the Discord</div>
+          <div class="link-subtitle">Community for systematic traders &amp; AI builders</div>
+        </div>
+        <span class="link-arrow">&#8250;</span>
+      </a>
+
+      <a class="link-card" href="https://medium.com/@techacademies" target="_blank" rel="noopener">
+        <span class="link-icon">&#9997;&#65039;</span>
+        <div class="link-text">
+          <div class="link-title">Read on Medium</div>
+          <div class="link-subtitle">English articles on systematic trading &amp; AI tools</div>
+        </div>
+        <span class="link-arrow">&#8250;</span>
+      </a>
+
+      <a class="link-card teal" href="https://note.com/trading_academy" target="_blank" rel="noopener">
+        <span class="link-icon">&#127471;&#127477;</span>
+        <div class="link-text">
+          <div class="link-title">Note&#65288;&#26085;&#26412;&#35486;&#65289;</div>
+          <div class="link-subtitle">&#12471;&#12473;&#12486;&#12512;&#12488;&#12524;&#12540;&#12489;&#12392;AI&#27963;&#29992;&#12398;&#35352;&#20107;</div>
+        </div>
+        <span class="link-arrow">&#8250;</span>
+      </a>
+
+      <a class="link-card" href="https://x.com/TechTradingUSA" target="_blank" rel="noopener">
+        <span class="link-icon" style="font-family: serif; font-weight: 700;">&#120143;</span>
+        <div class="link-text">
+          <div class="link-title">Follow on X</div>
+          <div class="link-subtitle">@TechTradingUSA — Daily trading insights</div>
+        </div>
+        <span class="link-arrow">&#8250;</span>
+      </a>
+
+      <a class="link-card teal" href="https://instagram.com/technical_trading_academy" target="_blank" rel="noopener">
+        <span class="link-icon">&#128248;</span>
+        <div class="link-text">
+          <div class="link-title">Instagram</div>
+          <div class="link-subtitle">@technical_trading_academy — Video breakdowns</div>
+        </div>
+        <span class="link-arrow">&#8250;</span>
+      </a>
+
+      <a class="link-card wide" href="https://techacademies.org/newsletter" target="_blank" rel="noopener">
+        <span class="link-icon">&#128233;</span>
+        <div class="link-text">
+          <div class="link-title">Newsletter</div>
+          <div class="link-subtitle">Market insights & new article alerts — delivered to your inbox</div>
+        </div>
+        <span class="link-arrow">&#8250;</span>
+      </a>
+
+      <div class="dropdown-wrapper" onclick="toggleDropdown(this, event)">
+        <div class="dropdown-header">
+          <span class="link-icon">&#128736;&#65039;</span>
+          <div class="link-text">
+            <div class="link-title">Trading Support Applications</div>
+            <div class="link-subtitle">TradePro Flow &middot; DataViz Studio &middot; The Pulse</div>
+          </div>
+          <span class="link-arrow">&#8250;</span>
+        </div>
+        <div class="dropdown-body">
+          <a class="dropdown-sublink" href="https://tradepro.dev" target="_blank" rel="noopener" onclick="event.stopPropagation()">
+            <span class="sub-icon">&#9889;</span>
+            <div class="sub-text">
+              <div class="sub-title">TradePro Flow</div>
+              <div class="sub-subtitle">Automated ES/MES execution system</div>
+            </div>
+            <span class="sub-arrow">&#8250;</span>
+          </a>
+          <a class="dropdown-sublink" href="https://datavizstudio.net/analyze" target="_blank" rel="noopener" onclick="event.stopPropagation()">
+            <span class="sub-icon">&#128202;</span>
+            <div class="sub-text">
+              <div class="sub-title">DataViz Studio</div>
+              <div class="sub-subtitle">Free instant backtest report &mdash; no signup</div>
+            </div>
+            <span class="sub-arrow">&#8250;</span>
+          </a>
+          <a class="dropdown-sublink" href="https://pulse-board.net" target="_blank" rel="noopener" onclick="event.stopPropagation()">
+            <span class="sub-icon">&#128225;</span>
+            <div class="sub-text">
+              <div class="sub-title">The Pulse</div>
+              <div class="sub-subtitle">Real-time multi-timeframe market scanner</div>
+            </div>
+            <span class="sub-arrow">&#8250;</span>
+          </a>
+        </div>
+      </div>
+
+      <div class="dropdown-wrapper" onclick="toggleDropdown(this, event)">
+        <div class="dropdown-header teal">
+          <span class="link-icon">&#128218;</span>
+          <div class="link-text">
+            <div class="link-title">Kindle&#65288;&#26085;&#26412;&#35486;&#29256;&#65289;</div>
+            <div class="link-subtitle">&#12476;&#12525;&#12363;&#12425;&#22987;&#12417;&#12427;&#12487;&#12452;&#12488;&#12524;&#12540;&#12487;&#12451;&#12531;&#12464;</div>
+          </div>
+          <span class="link-arrow">&#8250;</span>
+        </div>
+        <div class="dropdown-body">
+          <a class="dropdown-sublink teal" href="https://www.amazon.co.jp/dp/B0FZ37FKJ9" target="_blank" rel="noopener" onclick="event.stopPropagation()">
+            <span class="sub-icon">&#128216;</span>
+            <span class="sub-title">Vol.1 &#22522;&#30990;&#32232;</span>
+            <span class="sub-arrow">&#8250;</span>
+          </a>
+          <a class="dropdown-sublink teal" href="https://www.amazon.co.jp/dp/B0G2QZKYP1" target="_blank" rel="noopener" onclick="event.stopPropagation()">
+            <span class="sub-icon">&#128215;</span>
+            <span class="sub-title">Vol.2 &#23455;&#36341;&#32232;</span>
+            <span class="sub-arrow">&#8250;</span>
+          </a>
+        </div>
+      </div>
+
+      <div class="dropdown-wrapper" onclick="toggleDropdown(this, event)">
+        <div class="dropdown-header">
+          <span class="link-icon">&#128214;</span>
+          <div class="link-text">
+            <div class="link-title">Kindle (English Edition)</div>
+            <div class="link-subtitle">Day Trading from Zero &mdash; Worldwide</div>
+          </div>
+          <span class="link-arrow">&#8250;</span>
+        </div>
+        <div class="dropdown-body">
+          <a class="dropdown-sublink" href="https://www.amazon.com/dp/B0GHPYB78D" target="_blank" rel="noopener" onclick="event.stopPropagation()">
+            <span class="sub-icon">&#128216;</span>
+            <span class="sub-title">Vol.1 Foundations</span>
+            <span class="sub-arrow">&#8250;</span>
+          </a>
+          <a class="dropdown-sublink" href="https://www.amazon.com/dp/B0F1QFN6HJ" target="_blank" rel="noopener" onclick="event.stopPropagation()">
+            <span class="sub-icon">&#128215;</span>
+            <span class="sub-title">Vol.2 Advanced</span>
+            <span class="sub-arrow">&#8250;</span>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer">&copy; Technical Trading Academy</div>
+  </div>
+
+  <div class="bottom-bar"></div>
+
+  <script>
+    function toggleDropdown(wrapper, event) {
+      if (event.target.closest('a')) return;
+      wrapper.classList.toggle('open');
+    }
+    document.addEventListener('click', function(e) {
+      if (!e.target.closest('.dropdown-wrapper')) {
+        document.querySelectorAll('.dropdown-wrapper.open').forEach(function(el) {
+          el.classList.remove('open');
+        });
+      }
+    });
+  </script>
+</body>
+</html>
